@@ -1,5 +1,83 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
 .jumbotron {
-    height: 300px;
-    background-color: blue;
-    color: red;
+    color: white;
+    min-height: 250px;
+    background-color: #FA7D19;
+    padding: 30px 40px;
+    margin-top: 20px;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+.jumbotron-text {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.products-list {
+
+}
+
+.product {
+    display: flex;
+    margin-top: 20px;
+    /*padding: 15px 15px 15px 0;*/
+    padding: 15px 0;
+}
+
+.product-photo {
+    height: 200px;
+    width: 200px;
+    border-radius: 5px;
+    border: 2px solid #FA7D19;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+    height: 200px;
+}
+
+.product-info p {
+    margin: 0;
+    padding: 0;
+}
+
+.product-info p:last-of-type {
+    margin-top: 5px;
+}
+
+.product-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-utils {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.product-utils a {
+    text-decoration: none;
+}
+
+.fa-heart {
+    font-size: 32px;
+    margin-left: 10px;
+    color: #FA7D19;
+}
+
+.product-utils-buttons {
+    margin-top: auto;
+    display: flex;
+}
+
+#buy-button {
+    margin-right: 10px;
 }

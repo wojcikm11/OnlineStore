@@ -1,0 +1,84 @@
+.navbar, .navbar-expand-lg {
+    background-color: #F8F8F8;
+}
+
+.navbar, .navbar-expand-lg a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar, .navbar-expand-lg a:hover {
+    text-decoration: none;
+    color: #FA7D19;
+}
+
+a.navbar-brand {
+    color: #FFAC4A;
+    font-size: 24px;
+    letter-spacing: 0.05em;
+    font-weight: bolder;
+}
+
+.fas, .fa-share-alt-square {
+    color: #F31601;
+    margin-right: 5px;
+}
+
+#login-button {
+    width: 90px;
+}
+
+span.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+button.navbar-toggler {
+    background-color: white;
+    border: 1px solid #E2E6EA;
+}
+
+#login-button {
+    margin-left: 30px;
+}
+
+.category-dropdown {
+    border-radius: 0.25em;
+    width: 150px;
+    height: 36px;
+    align-content: center;
+    justify-content: center;
+}
+
+.navbar-util {
+    border-radius: 0.25em;
+    height: 36px;
+}
+
+.category-dropdown > li > a, .category-dropdown:hover > li > a {
+    color: white;
+}
+
+.category-dropdown:active, .category-dropdown:focus {
+    outline: none; !important;
+    box-shadow: none; !important;
+    color: white;
+}
+
+.nav-content {
+    justify-content: space-between;
+}
+
+.navbar-utils {
+    display: flex;
+    padding: 1px;
+    border: 2px solid #C5C5C5;
+    border-radius: 0.25em;
+}
+
+#xls-category-download {
+    margin-right: 10px;
+}
+
+.fa-solid, .fa-file-arrow-down {
+    margin-right: 5px;
+}
