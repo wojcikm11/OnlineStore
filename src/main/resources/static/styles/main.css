@@ -78,6 +78,42 @@ body {
     display: flex;
 }
 
-#buy-button {
+.buy-button {
     margin-right: 10px;
+}
+
+.category-dropdown {
+    border-radius: 0.25em;
+    width: 150px;
+    height: 36px;
+    justify-content: center;
+    text-align: center;
+}
+
+.products-util {
+    border-radius: 0.25em;
+    height: 36px;
+}
+
+.category-dropdown > li > a, .category-dropdown:hover > li > a {
+    color: white;
+}
+
+.category-dropdown:active, .category-dropdown:focus {
+    outline: none; !important;
+    box-shadow: none; !important;
+    color: white;
+}
+
+.products-utils {
+    display: flex;
+    margin-top: 20px;
+}
+
+#xls-category-download {
+    margin-right: 10px;
+}
+
+.fa-solid, .fa-file-arrow-down {
+    margin-right: 5px;
 }

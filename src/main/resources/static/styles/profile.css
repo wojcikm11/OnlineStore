@@ -1,0 +1,102 @@
+.user-image {
+    display: flex;
+    width: 300px;
+    height: 300px;
+    background-color: #FA7D19;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.fa-user {
+    font-size: 150px;
+    color: white;
+}
+
+.user-main {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+#profile-username {
+    margin-top: 20px;
+    color: #30363D;
+    font-weight: 500;
+}
+
+#edit-info-button {
+    margin-top: 5px;
+}
+
+.user-info {
+    display: flex;
+    gap: 70px;
+}
+
+.user-info-values > p {
+    font-weight: 500;
+}
+
+.section-header {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: -5px;
+}
+
+.profile-section {
+    margin-top: 50px;
+}
+
+.profile-opinion {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+/*.profile-opinion:nth-of-type(1) {*/
+/*    margin-top: 15px;*/
+/*}*/
+
+.profile-opinion:last-child {
+    border-bottom: none;
+}
+
+.opinion-username {
+    font-weight: 700;
+    font-size: 20px;
+    padding-bottom: 3px;
+}
+
+.opinion-date {
+    color: #616161;
+    font-size: 12px;
+}
+
+.opinion-rating {
+    font-weight: 500;
+}
+
+.opinion-description {
+    margin-top: 5px;
+}
+
+.opinions-dropdown {
+    border-radius: 0.25em;
+    width: 120px;
+    height: 36px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.opinions-dropdown > li > a, .opinions-dropdown:hover > li > a {
+    color: white;
+}
+
+.opinions-dropdown:active, .opinions-dropdown:focus {
+    outline: none; !important;
+    box-shadow: none; !important;
+    color: white;
+}

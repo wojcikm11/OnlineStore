@@ -38,47 +38,29 @@ button.navbar-toggler {
 }
 
 #login-button {
-    margin-left: 30px;
-}
-
-.category-dropdown {
-    border-radius: 0.25em;
-    width: 150px;
-    height: 36px;
-    align-content: center;
-    justify-content: center;
-}
-
-.navbar-util {
-    border-radius: 0.25em;
-    height: 36px;
-}
-
-.category-dropdown > li > a, .category-dropdown:hover > li > a {
-    color: white;
-}
-
-.category-dropdown:active, .category-dropdown:focus {
-    outline: none; !important;
-    box-shadow: none; !important;
-    color: white;
+    margin-left: 15px;
 }
 
 .nav-content {
     justify-content: space-between;
 }
 
-.navbar-utils {
+.fa-circle-user {
+    font-size: 36px;
+    color: #0B5ED7;
+}
+
+.user-profile {
     display: flex;
-    padding: 1px;
+    align-items: center;
     border: 2px solid #C5C5C5;
-    border-radius: 0.25em;
+    border-radius: 30px;
+    padding-right: 5px;
+    margin-right: 0;
+    background-color: white;
 }
 
-#xls-category-download {
-    margin-right: 10px;
-}
-
-.fa-solid, .fa-file-arrow-down {
-    margin-right: 5px;
+#username {
+    display: block;
+    color: black;
 }
