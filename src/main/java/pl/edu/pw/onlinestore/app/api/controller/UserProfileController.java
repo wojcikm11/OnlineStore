@@ -1,4 +1,4 @@
-package pl.edu.pw.onlinestore.api.controller;
+package pl.edu.pw.onlinestore.app.api.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

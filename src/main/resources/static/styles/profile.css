@@ -87,8 +87,6 @@
     border-radius: 0.25em;
     width: 120px;
     height: 36px;
-    margin-top: 10px;
-    margin-bottom: 5px;
 }
 
 .opinions-dropdown > li > a, .opinions-dropdown:hover > li > a {
@@ -99,4 +97,28 @@
     outline: none; !important;
     box-shadow: none; !important;
     color: white;
+}
+
+.opinions-utils {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    gap: 10px;
+}
+
+#add-opinion-button {
+    height: 36px;
+}
+
+.opinion-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.opinion-header a {
+    text-decoration: none;
+}
+
+.remove-opinion-link {
+    margin-right: 15px;
 }

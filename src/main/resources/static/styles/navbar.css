@@ -37,10 +37,6 @@ button.navbar-toggler {
     border: 1px solid #E2E6EA;
 }
 
-#login-button {
-    margin-left: 15px;
-}
-
 .nav-content {
     justify-content: space-between;
 }
@@ -58,9 +54,14 @@ button.navbar-toggler {
     padding-right: 5px;
     margin-right: 0;
     background-color: white;
+    margin-right: 15px;
 }
 
 #username {
     display: block;
     color: black;
+}
+
+#admin-panel-button {
+    margin-right: 8px;
 }
