@@ -2,15 +2,11 @@
     background-color: #F8F8F8;
 }
 
-.navbar, .navbar-expand-lg a {
+.navbar, #user-profile-link {
     text-decoration: none;
     color: black;
 }
 
-.navbar, .navbar-expand-lg a:hover {
-    text-decoration: none;
-    color: #FA7D19;
-}
 
 a.navbar-brand {
     color: #FFAC4A;

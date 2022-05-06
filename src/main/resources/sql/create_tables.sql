@@ -10,7 +10,8 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE IF NOT EXISTS user (
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    role ENUM('USER', 'ADMIN') NOT NULL DEFAULT 'USER'
 );
 
 CREATE TABLE IF NOT EXISTS user_info (
@@ -36,6 +37,7 @@ CREATE TABLE IF NOT EXISTS product (
     user_id INT NOT NULL,
     title VARCHAR(25) NOT NULL,
     price FLOAT NOT NULL,
+    photo BLOB,
     FOREIGN KEY (category_id) REFERENCES category (id),
     FOREIGN KEY (user_id) REFERENCES user (id)
 );
@@ -53,6 +55,7 @@ CREATE TABLE IF NOT EXISTS opinion (
     user_id INT NOT NULL,
     user_profile_id INT NOT NULL,
     date_added DATETIME NOT NULL,
+    rating INT NOT NULL,
     description VARCHAR(250) NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES user (id),
 	FOREIGN KEY (user_profile_id) REFERENCES user (id)

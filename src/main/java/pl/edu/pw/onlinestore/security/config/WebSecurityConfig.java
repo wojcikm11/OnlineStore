@@ -11,8 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import pl.edu.pw.onlinestore.app.api.service.UserService;
 import pl.edu.pw.onlinestore.app.api.service.UserServiceImpl;
+
+import static pl.edu.pw.onlinestore.app.domain.Role.*;
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "index", "/css/*", "/js/*", "/login", "/register").permitAll()
+                .antMatchers("/", "index", "/profile", "/resources/**", "/static/**", "/styles/**", "/js/**", "/img/**", "/login", "/register").permitAll()
+                .antMatchers("/admin/**").hasRole(ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
