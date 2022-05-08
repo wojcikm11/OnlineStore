@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dodaj opinię</title>
+    <title>Edytuj kategorię</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,17 +15,17 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container form-container">
-    <form th:action="@{/opinion}" method="POST">
-        <h1 class="form-header">Dodaj opinię</h1>
+    <form th:action="@{/category_edit}" method="POST">
+        <h1 class="form-header">Edytuj kategorię</h1>
         <div class="form-group form-input">
-            <label for="rating">Ocena</label>
-            <input type="number" class="form-control rating" id="rating"  min="0" max="5" value="5">
+            <label for="title">Nazwa</label>
+            <input type="text" class="form-control" id="title" placeholder="Nazwa">
         </div>
         <div class="form-group form-input">
-            <label for="opinion">Opinia</label>
-            <textarea class="form-control opinion" id="opinion" rows="3" placeholder="Treść opinii"></textarea>
+            <label for="description">Opis</label>
+            <textarea class="form-control" id="description" rows="3" placeholder="Opis"></textarea>
         </div>
-        <button id="register-button" type="submit" class="btn btn-primary form-button">Dodaj opinię</button>
+        <button id="register-button" type="submit" class="btn btn-primary form-button">Edytuj kategorię</button>
         <!--        <div style="margin-top: 20px" th:if="${errorMessage != null}" th:text="${errorMessage}" class="alert alert-danger" role="alert">-->
     </form>
 </div>

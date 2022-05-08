@@ -23,7 +23,7 @@
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <div id="profile-username">PussyDestroyer69</div>
-                    <button id="edit-info-button" class="btn btn-primary" type="submit">Edytuj profil</button>
+                    <a th:href="@{edit-profile}" id="edit-info-button" class="btn btn-primary" type="submit">Edytuj profil</a>
                 </div>
             </div>
             <div class="col-7 my-5">
@@ -147,7 +147,7 @@
                         <li><a class="dropdown-item" href="#">Negatywne</a></li>
                     </ul>
                 </div>
-                <button id="add-opinion-button" type="button" class="btn btn-primary">Dodaj opinię</button>
+                <a th:href="@{/add-opinion}" id="add-opinion-button" type="button" class="btn btn-primary">Dodaj opinię</a>
             </div>
 
             <div class="profile-opinion">
@@ -155,7 +155,7 @@
                     <div class="opinion-username">Stachursky666</div>
                     <div class="opinion-utils">
                         <a class="remove-opinion-link" href="#">Usuń</a>
-                        <a href="#">Edytuj</a>
+                        <a th:href="@{/opinion-edit}">Edytuj</a>
                     </div>
                 </div>
                 <div class="opinion-rating">Ocena: 3/5</div>

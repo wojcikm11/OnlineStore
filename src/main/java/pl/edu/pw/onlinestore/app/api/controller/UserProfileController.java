@@ -10,4 +10,9 @@ public class UserProfileController {
     public String getUserProfilePage() {
         return "user-profile";
     }
+
+    @GetMapping("/edit-profile")
+    public String getEditProfilePage() {
+        return "forms/edit-user-info";
+    }
 }

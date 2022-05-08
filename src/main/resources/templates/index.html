@@ -32,8 +32,18 @@
         </div>
 
         <div class="jumbotron">
-            <h1 class="display-3">Example</h1>
-            <p class="jumbotron-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quam massa, sodales nec eleifend non, bibendum sit amet urna. Etiam sagittis porta justo, eget sollicitudin metus vestibulum ac. Vivamus ultricies odio id eros volutpat viverra. Vestibulum nec maximus metus, id sodales metus. Suspendisse aliquet erat nec est pellentesque, nec congue turpis sodales. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi id nisi velit. Vestibulum facilisis purus nec lectus auctor, eu faucibus lorem fringilla.</p>
+            <div class="category-header">
+                <h1 class="display-3">Example</h1>
+                <a th:href="@{/category-edit}" id="edit-category-button" type="button" class="btn btn-light edit-prod-button">Edytuj</a>
+            </div>
+            <p class="jumbotron-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                In quam massa, sodales nec eleifend non, bibendum sit amet urna. Etiam sagittis porta justo,
+                eget sollicitudin metus vestibulum ac. Vivamus ultricies odio id eros volutpat viverra.
+                Vestibulum nec maximus metus, id sodales metus. Suspendisse aliquet erat nec est pellentesque, nec
+                congue turpis sodales. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
+                turpis egestas. Morbi id nisi velit. Vestibulum facilisis purus nec lectus auctor, eu faucibus lorem fringilla.
+            </p>
         </div>
 
         <div class="products-list">
@@ -55,7 +65,7 @@
                     <div class="product-utils">
                         <div class="product-seller-buttons">
                             <button type="button" class="btn btn-danger buy-button delete-prod-button">Usuń</button>
-                            <button type="button" class="btn btn-light edit-prod-button">Edytuj</button>
+                            <a th:href="@{/product-edit}" type="button" class="btn btn-light edit-prod-button">Edytuj</a>
                         </div>
                         <div class="product-customer-buttons">
                             <button type="button" class="btn btn-primary buy-button">Kup teraz</button>

@@ -138,6 +138,12 @@ body {
 .edit-prod-button {
     width: 80px;
     background-color: #BDBDBD;
+    border: 1px solid #BDBDBD;
+    color: white;
+}
+
+.edit-prod-button:hover, .edit-prod-button:focus {
+    background-color: #BDBDBD;
     color: white;
 }
 
@@ -147,4 +153,13 @@ body {
 
 #sell-button {
 
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#edit-category-button {
+    height: min-content;
 }
