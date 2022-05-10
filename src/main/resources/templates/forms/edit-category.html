@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edytuj kategorię</title>
@@ -15,16 +15,17 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container form-container">
-    <form th:action="@{/category_edit}" method="POST">
+    <form th:action="@{/category-edit}" th:object="${category}" method="POST">
         <h1 class="form-header">Edytuj kategorię</h1>
         <div class="form-group form-input">
             <label for="title">Nazwa</label>
-            <input type="text" class="form-control" id="title" placeholder="Nazwa">
+            <input th:field="*{title}" type="text" class="form-control" id="title" placeholder="Nazwa">
         </div>
         <div class="form-group form-input">
             <label for="description">Opis</label>
-            <textarea class="form-control" id="description" rows="3" placeholder="Opis"></textarea>
+            <textarea th:field="*{description}" class="form-control" id="description" rows="3" placeholder="Opis"></textarea>
         </div>
+        <input type="hidden" th:field="*{id}">
         <button id="register-button" type="submit" class="btn btn-primary form-button">Edytuj kategorię</button>
         <!--        <div style="margin-top: 20px" th:if="${errorMessage != null}" th:text="${errorMessage}" class="alert alert-danger" role="alert">-->
     </form>

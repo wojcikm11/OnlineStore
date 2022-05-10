@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edytuj produkt</title>
@@ -15,25 +15,23 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container form-container">
-    <form th:action="@{/sell_edit}" method="POST">
+    <form th:action="@{/product-edit}" th:object="${product}" method="POST">
         <h1 class="form-header">Edytuj produkt</h1>
         <div class="form-group form-input">
             <label for="username">Nazwa produktu</label>
-            <input type="text" class="form-control username" id="username" placeholder="Nazwa produktu">
+            <input type="text" th:field="*{title}" class="form-control username" id="username" placeholder="Nazwa produktu">
         </div>
         <div class="form-group form-input">
             <label for="price">Cena</label>
-            <input type="number" class="form-control password" id="price" placeholder="Cena">
+            <input type="number" th:field="*{price}" class="form-control password" id="price" placeholder="Cena">
         </div>
         <div class="form-group form-input">
             <label for="category">Kategoria</label>
-            <select class="form-control password" id="category">
-                <option selected>Kategoria...</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <select th:field="*{categoryId}" class="form-control password" id="category">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.title}"></option>
             </select>
         </div>
+        <input type="hidden" th:field="*{id}">
         <button id="register-button" type="submit" class="btn btn-primary form-button">Edytuj produkt</button>
         <!--        <div style="margin-top: 20px" th:if="${errorMessage != null}" th:text="${errorMessage}" class="alert alert-danger" role="alert">-->
     </form>

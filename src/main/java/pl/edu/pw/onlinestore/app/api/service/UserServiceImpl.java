@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.edu.pw.onlinestore.app.api.dto.EditUserInfo;
+import pl.edu.pw.onlinestore.app.api.dto.UserInfoDTO;
 import pl.edu.pw.onlinestore.app.api.dto.UserRegistration;
 import pl.edu.pw.onlinestore.app.domain.Role;
 import pl.edu.pw.onlinestore.app.domain.User;
@@ -47,6 +49,35 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public Optional<User> getByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public UserInfoDTO getUserInfoByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow();
+        UserInfo userInfo = user.getUserInfo();
+        return map(userInfo, user.getUsername());
+    }
+
+    @Override
+    public void updateUserInfo(EditUserInfo editUserInfo, String username) {
+        UserInfo userInfo = userRepository.findByUsername(username).orElseThrow().getUserInfo();
+        userInfo.setFirstName(editUserInfo.getFirstName());
+        userInfo.setLastName(editUserInfo.getLastName());
+        userInfo.setCity(editUserInfo.getCity());
+        userInfo.setEmail(editUserInfo.getEmail());
+        userInfo.setPhone(editUserInfo.getPhone());
+    }
+
+    private UserInfoDTO map(UserInfo userInfo, String username) {
+        return new UserInfoDTO(
+                userInfo.getId(),
+                username,
+                userInfo.getFirstName(),
+                userInfo.getLastName(),
+                userInfo.getCity(),
+                userInfo.getEmail(),
+                userInfo.getPhone()
+        );
     }
 
     @Override

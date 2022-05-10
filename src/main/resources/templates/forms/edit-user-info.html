@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Zmień informacje konta</title>
@@ -15,29 +15,30 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container form-container">
-    <form th:action="@{/userinfo}" method="POST">
+    <form th:action="@{/edit-profile(username=${param.username[0]})}" th:object="${userInfo}" method="POST">
         <h1 class="form-header">Zmień informacje konta</h1>
         <div class="form-group form-input">
-            <label for="username">Imię</label>
-            <input type="text" class="form-control username" id="username" placeholder="Imię">
+            <label for="firstName">Imię</label>
+            <input type="text" th:field="*{firstName}" class="form-control username" id="firstName" placeholder="Imię">
         </div>
         <div class="form-group form-input">
-            <label for="price">Nazwisko</label>
-            <input type="number" class="form-control password" id="price" placeholder="Nazwisko">
+            <label for="lastName">Nazwisko</label>
+            <input type="text" th:field="*{lastName}" class="form-control password" id="lastName" placeholder="Nazwisko">
         </div>
         <div class="form-group form-input">
             <label for="city">Miasto</label>
-            <input type="text" class="form-control username" id="city" placeholder="Miasto">
+            <input type="text" th:field="*{city}" class="form-control username" id="city" placeholder="Miasto">
         </div>
         <div class="form-group form-input">
             <label for="email">Email</label>
-            <input type="email" class="form-control username" id="email" placeholder="Email">
+            <input type="email" th:field="*{email}" class="form-control username" id="email" placeholder="Email">
         </div>
         <div class="form-group form-input">
             <label for="phone">Numer telefonu</label>
-            <input type="tel" class="form-control username" id="phone" placeholder="Numer telefonu">
+            <input type="tel" th:field="*{phone}" class="form-control username" id="phone" placeholder="Numer telefonu">
         </div>
-        <button id="register-button" type="submit" class="btn btn-primary form-button">Edytuj profil</button>
+        <input type="hidden" th:field="*{id}">
+        <button id="register-button" type="submit" class="btn btn-primary form-button">Zapisz</button>
         <!--        <div style="margin-top: 20px" th:if="${errorMessage != null}" th:text="${errorMessage}" class="alert alert-danger" role="alert">-->
     </form>
 </div>

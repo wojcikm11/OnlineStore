@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_info")
+@Table
 @Setter
 @Getter
 @NoArgsConstructor
@@ -26,8 +26,15 @@ public class Product {
 
     private String title;
 
-    private String price;
+    private double price;
 
     @Lob
     private byte[] photo;
+
+    public Product(User user, Category category, String title, double price) {
+        this.user = user;
+        this.category = category;
+        this.title = title;
+        this.price = price;
+    }
 }

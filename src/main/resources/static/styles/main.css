@@ -68,7 +68,7 @@ body {
     justify-content: flex-end;
 }
 
-.product-utils a {
+.product-utils a, .product a {
     text-decoration: none;
 }
 
@@ -160,6 +160,6 @@ body {
     justify-content: space-between;
 }
 
-#edit-category-button {
+.edit-category-button {
     height: min-content;
 }

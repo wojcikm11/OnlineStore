@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS user_info (
 CREATE TABLE IF NOT EXISTS category (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(25) NOT NULL UNIQUE,
-    description VARCHAR(200) NOT NULL
+    description VARCHAR(1000) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS product (
@@ -52,11 +52,11 @@ CREATE TABLE IF NOT EXISTS wishlist (
 
 CREATE TABLE IF NOT EXISTS opinion (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    user_profile_id INT NOT NULL,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
     date_added DATETIME NOT NULL,
     rating INT NOT NULL,
     description VARCHAR(250) NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES user (id),
-	FOREIGN KEY (user_profile_id) REFERENCES user (id)
+	FOREIGN KEY (sender_id) REFERENCES user (id),
+	FOREIGN KEY (receiver_id) REFERENCES user (id)
 );

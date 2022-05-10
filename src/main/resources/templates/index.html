@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,9 +23,8 @@
                     Kategoria
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Wszystkie</a></li>
-                    <li><a class="dropdown-item" href="#">Technologia</a></li>
-                    <li><a class="dropdown-item" href="#">Odzież</a></li>
+                    <li><a class="dropdown-item" th:text="Wszystkie" th:href="@{/}"></a></li>
+                    <li th:each="category :${categories}"><a class="dropdown-item" th:text="${category.title}" th:href="@{/(category=${category.title.toLowerCase()})}"></a></li>
                 </ul>
             </div>
             <a th:href="@{/sell}" id="sell-button" type="button" class="btn btn-primary">Sprzedaj</a>
@@ -33,94 +32,35 @@
 
         <div class="jumbotron">
             <div class="category-header">
-                <h1 class="display-3">Example</h1>
-                <a th:href="@{/category-edit}" id="edit-category-button" type="button" class="btn btn-light edit-prod-button">Edytuj</a>
+                <h1 class="display-3" th:text="${categoryInfo.title}"></h1>
+                <a th:href="@{/category-edit(name=${categoryInfo.title.toLowerCase()})}" sec:authorize="hasAuthority('ROLE_ADMIN')"
+                   th:if="${categoryInfo.id != -1}"
+                   type="button" class="btn btn-light edit-prod-button edit-category-button">Edytuj</a>
             </div>
-            <p class="jumbotron-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                In quam massa, sodales nec eleifend non, bibendum sit amet urna. Etiam sagittis porta justo,
-                eget sollicitudin metus vestibulum ac. Vivamus ultricies odio id eros volutpat viverra.
-                Vestibulum nec maximus metus, id sodales metus. Suspendisse aliquet erat nec est pellentesque, nec
-                congue turpis sodales. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                turpis egestas. Morbi id nisi velit. Vestibulum facilisis purus nec lectus auctor, eu faucibus lorem fringilla.
-            </p>
+            <p class="jumbotron-text" th:text="${categoryInfo.description}"></p>
         </div>
 
         <div class="products-list">
 
-            <div class="product">
+            <div th:each="product : ${products}" class="product">
                 <div class="product-photo-container">
                     <img th:src="@{img/ajfon.jpg}" class="product-photo" alt="Responsive image">
                 </div>
                 <div class="product-content">
                     <div class="product-header">
-                        <h3 class="product-title">Iphone 13 Pro Max 1000gb super hiper</h3>
+                        <h3 class="product-title" th:text="${product.title}"></h3>
                         <a href="#"><i class="fa-regular fa-heart"></i></a>
                     </div>
                     <div class="product-info">
-                        <p>Sprzedawca: StachuStachursky666</p>
-                        <p>Kategoria: Technologia</p>
-                        <p class="product-price">Cena: 5999,99 zł</p>
+                        <p>Sprzedawca: <a th:href="@{profile(username=${product.seller})}"><span th:text="${product.seller}"></span></a></p>
+                        <p>Kategoria: <span th:text="${product.category}"></span></p>
+                        <p>Cena: <span th:text="${product.price}" class="product-price"></span>zł</p>
                     </div>
                     <div class="product-utils">
-                        <div class="product-seller-buttons">
-                            <button type="button" class="btn btn-danger buy-button delete-prod-button">Usuń</button>
-                            <a th:href="@{/product-edit}" type="button" class="btn btn-light edit-prod-button">Edytuj</a>
-                        </div>
-                        <div class="product-customer-buttons">
-                            <button type="button" class="btn btn-primary buy-button">Kup teraz</button>
-                            <button type="button" class="btn btn-primary">Dodaj do koszyka</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product">
-                <div class="product-photo-container">
-                    <img th:src="@{img/ajfon.jpg}" class="product-photo" alt="Responsive image">
-                </div>
-                <div class="product-content">
-                    <div class="product-header">
-                        <h3 class="product-title">Iphone 13 Pro Max 1000gb super hiper</h3>
-                        <a href="#"><i class="fa-regular fa-heart"></i></a>
-                    </div>
-                    <div class="product-info">
-                        <p>Sprzedawca: StachuStachursky666</p>
-                        <p>Kategoria: Technologia</p>
-                        <p class="product-price">Cena: 5999,99 zł</p>
-                    </div>
-                    <div class="product-utils">
-                        <div class="product-seller-buttons">
-                            <button type="button" class="btn btn-danger buy-button delete-prod-button">Usuń</button>
-                            <button type="button" class="btn btn-light edit-prod-button">Edytuj</button>
-                        </div>
-                        <div class="product-customer-buttons">
-                            <button type="button" class="btn btn-primary buy-button">Kup teraz</button>
-                            <button type="button" class="btn btn-primary">Dodaj do koszyka</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product">
-                <div class="product-photo-container">
-                    <img th:src="@{img/ajfon.jpg}" class="product-photo" alt="Responsive image">
-                </div>
-                <div class="product-content">
-                    <div class="product-header">
-                        <h3 class="product-title">Iphone 13 Pro Max 1000gb super hiper</h3>
-                        <a href="#"><i class="fa-regular fa-heart"></i></a>
-                    </div>
-                    <div class="product-info">
-                        <p>Sprzedawca: StachuStachursky666</p>
-                        <p>Kategoria: Technologia</p>
-                        <p class="product-price">Cena: 5999,99 zł</p>
-                    </div>
-                    <div class="product-utils">
-                        <div class="product-seller-buttons">
-                            <button type="button" class="btn btn-danger buy-button delete-prod-button">Usuń</button>
-                            <button type="button" class="btn btn-light edit-prod-button">Edytuj</button>
-                        </div>
+                        <form class="product-seller-buttons" th:action="@{/product-delete(id=${product.id})}" method="POST">
+                            <button type="submit" class="btn btn-danger buy-button delete-prod-button">Usuń</button>
+                            <a th:href="@{/product-edit(id=${product.id})}" type="button" class="btn btn-light edit-prod-button">Edytuj</a>
+                        </form>
                         <div class="product-customer-buttons">
                             <button type="button" class="btn btn-primary buy-button">Kup teraz</button>
                             <button type="button" class="btn btn-primary">Dodaj do koszyka</button>

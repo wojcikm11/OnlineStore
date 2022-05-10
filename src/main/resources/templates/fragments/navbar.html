@@ -19,7 +19,7 @@
             </button>
             <div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <a id="user-profile-link" sec:authorize="isAuthenticated()" href="/profile">
+                    <a id="user-profile-link" sec:authorize="isAuthenticated()" th:href="@{/profile(username=${#authentication.getPrincipal().getUsername().toLowerCase()})}">
                         <div class="user-profile">
                             <i class="fa-solid fa-circle-user"></i>
                             <span id="username" th:text ="${#authentication.getPrincipal().getUsername()}"></span>
@@ -42,7 +42,7 @@
 <!--                        </ul>-->
 <!--                    </div>-->
                     <div class="d-flex">
-                        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}" id="admin-panel-button" role="button" class="btn btn-primary">Panel administratora</a>
+                        <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/category-add}" id="admin-panel-button" role="button" class="btn btn-primary">Panel administratora</a>
                         <a sec:authorize="isAnonymous()" th:href="@{/login}" id="login-button" role="button" class="btn btn-primary">Zaloguj</a>
                         <a sec:authorize="isAuthenticated()" th:href="@{/logout}" id="logout-button" role="button" class="btn btn-primary">Wyloguj</a>
                     </div>

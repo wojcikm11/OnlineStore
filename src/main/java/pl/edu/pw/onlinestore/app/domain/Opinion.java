@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -20,11 +21,11 @@ public class Opinion {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("id")
+    @JoinColumn(name="receiver_id")
     private User receiver;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("id")
+    @JoinColumn(name="sender_id")
     private User sender;
 
     @Column
@@ -34,5 +35,13 @@ public class Opinion {
     private String description;
 
     @Column
-    private Date dateAdded;
+    private LocalDateTime dateAdded;
+
+    public Opinion(User receiver, User sender, int rating, String description, LocalDateTime dateAdded) {
+        this.receiver = receiver;
+        this.sender = sender;
+        this.rating = rating;
+        this.description = description;
+        this.dateAdded = dateAdded;
+    }
 }

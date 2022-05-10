@@ -16,12 +16,15 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Category {
+    public static final String DEFAULT_TITLE = "Wszystkie produkty";
+    public static final String DEFAULT_DESCRIPTION = "W naszym internetowym sklepie możesz znaleźć wszystko, co " +
+            "mogli wystawić nasi użytkownicy - począwszy od atykułów szkolnych po smartfony. Sprawdź sam!";
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    @NaturalId
     private String title;
 
     @Column
@@ -33,4 +36,9 @@ public class Category {
             orphanRemoval = true
     )
     private List<Product> categoryProducts;
+
+    public Category(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 }

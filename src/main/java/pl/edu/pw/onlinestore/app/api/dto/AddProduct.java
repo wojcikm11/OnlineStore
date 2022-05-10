@@ -6,7 +6,7 @@ import pl.edu.pw.onlinestore.app.domain.Category;
 
 @Data
 public class AddProduct {
-    private String category;
+    private Long categoryId;
     private String title;
     private double price;
     private MultipartFile file;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,8 +22,11 @@
                     <div class="user-image">
                         <i class="fa-solid fa-user"></i>
                     </div>
-                    <div id="profile-username">PussyDestroyer69</div>
-                    <a th:href="@{edit-profile}" id="edit-info-button" class="btn btn-primary" type="submit">Edytuj profil</a>
+                    <div id="profile-username"><span th:text="${userInfo.username}"></span></div>
+                    <a sec:authorize="isAuthenticated()" th:if="${userInfo.username.equalsIgnoreCase(#authentication.getPrincipal().getUsername())}" th:href="@{edit-profile(username=${#authentication.getPrincipal().getUsername().toLowerCase()})}" class="btn btn-primary edit-info-button" type="submit">Edytuj profil</a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{#}" th:if="${!userInfo.username.equalsIgnoreCase(#authentication.getPrincipal().getUsername())}" class="btn btn-primary edit-info-button" type="submit">Obserwuj</a>
+                    <a sec:authorize="isAnonymous()" th:href="@{#}" class="btn btn-primary edit-info-button" type="submit">Obserwuj</a>
+
                 </div>
             </div>
             <div class="col-7 my-5">
@@ -36,11 +39,11 @@
                         <p>Telefon:</p>
                     </div>
                     <div class="user-info-values">
-                        <p>Michał</p>
-                        <p>Wójcik</p>
-                        <p>Warszawa</p>
-                        <p>michal.woj1010@gmail.com</p>
-                        <p>+48 694 205 235</p>
+                        <p th:text="${userInfo.firstName}"></p>
+                        <p th:text="${userInfo.lastName}"></p>
+                        <p th:text="${userInfo.city}"></p>
+                        <p th:text="${userInfo.email}"></p>
+                        <p th:text="${userInfo.phone}"></p>
                     </div>
                 </div>
             </div>
@@ -147,7 +150,7 @@
                         <li><a class="dropdown-item" href="#">Negatywne</a></li>
                     </ul>
                 </div>
-                <a th:href="@{/add-opinion}" id="add-opinion-button" type="button" class="btn btn-primary">Dodaj opinię</a>
+                <a th:href="@{/add-opinion(profile=${userInfo.username})}" id="add-opinion-button" type="button" class="btn btn-primary">Dodaj opinię</a>
             </div>
 
             <div class="profile-opinion">
