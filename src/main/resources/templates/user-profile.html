@@ -145,108 +145,121 @@
                         Wszystkie
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Wszystkie</a></li>
-                        <li><a class="dropdown-item" href="#">Pozytywne</a></li>
-                        <li><a class="dropdown-item" href="#">Negatywne</a></li>
+                        <li th:each="opinionType : ${opinionsTypes}"><a class="dropdown-item" th:text="${opinionType.name}" th:href="@{/profile(username=${userInfo.username}, opinions=${opinionType.urlName.toLowerCase()})}"></a></li>
                     </ul>
                 </div>
                 <a th:href="@{/add-opinion(profile=${userInfo.username})}" id="add-opinion-button" type="button" class="btn btn-primary">Dodaj opinię</a>
             </div>
 
-            <div class="profile-opinion">
+            <div th:each="opinion : ${opinions}" class="profile-opinion">
                 <div class="opinion-header">
-                    <div class="opinion-username">Stachursky666</div>
+                    <div class="opinion-username"><span th:text="${opinion.username}"></span></div>
                     <div class="opinion-utils">
                         <a class="remove-opinion-link" href="#">Usuń</a>
                         <a th:href="@{/opinion-edit}">Edytuj</a>
                     </div>
                 </div>
-                <div class="opinion-rating">Ocena: 3/5</div>
-                <div class="opinion-date">22.04.2021, 16:03</div>
-                <p class="opinion-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.
-                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.
-                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.
-                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.
+                <div class="opinion-rating">Ocena: <span th:text="${opinion.rating}"></span>/5</div>
+                <div class="opinion-date"><span th:text="${opinion.dateAdded.toString()}"></span></div>
+                <p class="opinion-description" th:text="${opinion.description}">
                 </p>
             </div>
 
-            <div class="profile-opinion">
-                <div class="opinion-header">
-                    <div class="opinion-username">Stachursky666</div>
-                    <div class="opinion-utils">
-                        <a class="remove-opinion-link" href="#">Usuń</a>
-                        <a href="#">Edytuj</a>
-                    </div>
-                </div>
-                <div class="opinion-rating">Ocena: 3/5</div>
-                <div class="opinion-date">22.04.2021, 16:03</div>
-                <p class="opinion-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.
-                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.
-                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.
-                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.
-                </p>
-            </div>
 
-            <div class="profile-opinion">
-                <div class="opinion-header">
-                    <div class="opinion-username">Stachursky666</div>
-                    <div class="opinion-utils">
-                        <a class="remove-opinion-link" href="#">Usuń</a>
-                        <a href="#">Edytuj</a>
-                    </div>
-                </div>
-                <div class="opinion-rating">Ocena: 3/5</div>
-                <div class="opinion-date">22.04.2021, 16:03</div>
-                <p class="opinion-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.
-                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.
-                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.
-                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.
-                </p>
-            </div>
+<!--            <div class="profile-opinion">-->
+<!--                <div class="opinion-header">-->
+<!--                    <div class="opinion-username">Stachursky666</div>-->
+<!--                    <div class="opinion-utils">-->
+<!--                        <a class="remove-opinion-link" href="#">Usuń</a>-->
+<!--                        <a th:href="@{/opinion-edit}">Edytuj</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="opinion-rating">Ocena: 3/5</div>-->
+<!--                <div class="opinion-date">22.04.2021, 16:03</div>-->
+<!--                <p class="opinion-description">-->
+<!--                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+<!--                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.-->
+<!--                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.-->
+<!--                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.-->
+<!--                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.-->
+<!--                </p>-->
+<!--            </div>-->
 
-            <div class="profile-opinion">
-                <div class="opinion-header">
-                    <div class="opinion-username">Stachursky666</div>
-                    <div class="opinion-utils">
-                        <a class="remove-opinion-link" href="#">Usuń</a>
-                        <a href="#">Edytuj</a>
-                    </div>
-                </div>
-                <div class="opinion-rating">Ocena: 3/5</div>
-                <div class="opinion-date">22.04.2021, 16:03</div>
-                <p class="opinion-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.
-                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.
-                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.
-                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.
-                </p>
-            </div>
+<!--            <div class="profile-opinion">-->
+<!--                <div class="opinion-header">-->
+<!--                    <div class="opinion-username">Stachursky666</div>-->
+<!--                    <div class="opinion-utils">-->
+<!--                        <a class="remove-opinion-link" href="#">Usuń</a>-->
+<!--                        <a href="#">Edytuj</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="opinion-rating">Ocena: 3/5</div>-->
+<!--                <div class="opinion-date">22.04.2021, 16:03</div>-->
+<!--                <p class="opinion-description">-->
+<!--                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+<!--                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.-->
+<!--                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.-->
+<!--                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.-->
+<!--                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.-->
+<!--                </p>-->
+<!--            </div>-->
 
-            <div class="profile-opinion">
-                <div class="opinion-header">
-                    <div class="opinion-username">Stachursky666</div>
-                    <div class="opinion-utils">
-                        <a class="remove-opinion-link" href="#">Usuń</a>
-                        <a href="#">Edytuj</a>
-                    </div>
-                </div>
-                <div class="opinion-rating">Ocena: 3/5</div>
-                <div class="opinion-date">22.04.2021, 16:03</div>
-                <p class="opinion-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.
-                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.
-                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.
-                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.
-                </p>
-            </div>
+<!--            <div class="profile-opinion">-->
+<!--                <div class="opinion-header">-->
+<!--                    <div class="opinion-username">Stachursky666</div>-->
+<!--                    <div class="opinion-utils">-->
+<!--                        <a class="remove-opinion-link" href="#">Usuń</a>-->
+<!--                        <a href="#">Edytuj</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="opinion-rating">Ocena: 3/5</div>-->
+<!--                <div class="opinion-date">22.04.2021, 16:03</div>-->
+<!--                <p class="opinion-description">-->
+<!--                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+<!--                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.-->
+<!--                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.-->
+<!--                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.-->
+<!--                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.-->
+<!--                </p>-->
+<!--            </div>-->
+
+<!--            <div class="profile-opinion">-->
+<!--                <div class="opinion-header">-->
+<!--                    <div class="opinion-username">Stachursky666</div>-->
+<!--                    <div class="opinion-utils">-->
+<!--                        <a class="remove-opinion-link" href="#">Usuń</a>-->
+<!--                        <a href="#">Edytuj</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="opinion-rating">Ocena: 3/5</div>-->
+<!--                <div class="opinion-date">22.04.2021, 16:03</div>-->
+<!--                <p class="opinion-description">-->
+<!--                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+<!--                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.-->
+<!--                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.-->
+<!--                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.-->
+<!--                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.-->
+<!--                </p>-->
+<!--            </div>-->
+
+<!--            <div class="profile-opinion">-->
+<!--                <div class="opinion-header">-->
+<!--                    <div class="opinion-username">Stachursky666</div>-->
+<!--                    <div class="opinion-utils">-->
+<!--                        <a class="remove-opinion-link" href="#">Usuń</a>-->
+<!--                        <a href="#">Edytuj</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="opinion-rating">Ocena: 3/5</div>-->
+<!--                <div class="opinion-date">22.04.2021, 16:03</div>-->
+<!--                <p class="opinion-description">-->
+<!--                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+<!--                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.-->
+<!--                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.-->
+<!--                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.-->
+<!--                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.-->
+<!--                </p>-->
+<!--            </div>-->
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

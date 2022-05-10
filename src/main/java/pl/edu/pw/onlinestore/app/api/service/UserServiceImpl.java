@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.onlinestore.app.api.dto.EditUserInfo;
+import pl.edu.pw.onlinestore.app.api.dto.OpinionTypeDTO;
 import pl.edu.pw.onlinestore.app.api.dto.UserInfoDTO;
 import pl.edu.pw.onlinestore.app.api.dto.UserRegistration;
 import pl.edu.pw.onlinestore.app.domain.Role;
@@ -16,6 +17,7 @@ import pl.edu.pw.onlinestore.app.domain.UserInfo;
 import pl.edu.pw.onlinestore.app.repository.UserRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service

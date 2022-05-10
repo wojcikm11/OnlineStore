@@ -6,24 +6,41 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.edu.pw.onlinestore.app.api.dto.EditProduct;
 import pl.edu.pw.onlinestore.app.api.dto.EditUserInfo;
+import pl.edu.pw.onlinestore.app.api.dto.OpinionTypeDTO;
+import pl.edu.pw.onlinestore.app.api.dto.ProfileOpinion;
 import pl.edu.pw.onlinestore.app.api.dto.UserInfoDTO;
+import pl.edu.pw.onlinestore.app.api.service.OpinionService;
 import pl.edu.pw.onlinestore.app.api.service.UserService;
+import pl.edu.pw.onlinestore.app.domain.OpinionType;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserProfileController {
 
     private UserService userService;
+    private OpinionService opinionService;
 
-    public UserProfileController(UserService userService) {
+    public UserProfileController(UserService userService, OpinionService opinionService) {
         this.userService = userService;
+        this.opinionService = opinionService;
     }
 
     @GetMapping("/profile")
-    public String getUserProfilePage(@RequestParam("username") String username, Model model) {
+    public String getUserProfilePage(@RequestParam("username") String username, @RequestParam("opinions") Optional<String> opinionsType, Model model) {
+        List<ProfileOpinion> profileOpinions;
+        if (opinionsType.isEmpty()) {
+            profileOpinions = opinionService.getProfileOpinions(username);
+        } else {
+            profileOpinions = opinionService.getProfileGivenTypeOpinions(opinionsType.get(), username);
+        }
         UserInfoDTO userInfo = userService.getUserInfoByUsername(username);
+        List<OpinionTypeDTO> opinionTypes = opinionService.getOpinionTypes();
         model.addAttribute("userInfo", userInfo);
+        model.addAttribute("opinions", profileOpinions);
+        model.addAttribute("opinionsTypes", opinionTypes);
         return "user-profile";
     }
 
