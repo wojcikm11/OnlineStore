@@ -56,7 +56,6 @@
         <div class="row profile-section">
             <p class="section-header">Lista życzeń</p>
             <div class="products-list">
-
                 <div th:each="product : ${wishList}" class="product">
                     <div class="product-photo-container">
                         <img th:if="${(product.photo != null && !#strings.isEmpty(product.photo))}" th:src="${('data:image/jpeg;charset=utf-8;base64,' + product.photo)}" class="product-photo">
