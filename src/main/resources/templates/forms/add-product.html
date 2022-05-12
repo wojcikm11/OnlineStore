@@ -15,7 +15,7 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container form-container">
-    <form th:action="@{/sell}" th:object="${product}" method="POST">
+    <form enctype="multipart/form-data" th:action="@{/sell}" th:object="${product}" method="POST">
         <h1 class="form-header">Sprzedaj produkt</h1>
         <div class="form-group form-input">
             <label for="username">Nazwa produktu</label>
@@ -33,7 +33,7 @@
         </div>
         <div class="form-group form-input mb-3">
             <label for="formFile" class="form-label">Dodaj zdjęcie</label>
-            <input class="form-control" type="file" id="formFile">
+            <input th:field="*{file}" class="form-control" type="file" id="formFile">
         </div>
         <button id="register-button" type="submit" class="btn btn-primary form-button">Wystaw na sprzedaż</button>
 <!--        <div style="margin-top: 20px" th:if="${errorMessage != null}" th:text="${errorMessage}" class="alert alert-danger" role="alert">-->

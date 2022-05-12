@@ -7,6 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ProductInfo {
     private Long id;
+    private String photo;
     private Long categoryId;
     private String title;
     private String seller;

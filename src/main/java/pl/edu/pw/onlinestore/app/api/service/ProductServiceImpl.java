@@ -15,6 +15,8 @@ import pl.edu.pw.onlinestore.app.repository.ProductRepository;
 import pl.edu.pw.onlinestore.app.repository.UserRepository;
 import pl.edu.pw.onlinestore.security.SecurityUtils;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -33,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addProduct(AddProduct addProduct) {
+    public void addProduct(AddProduct addProduct) throws IOException {
         User loggedUser = SecurityUtils.getLoggedUser();
         Category category = categoryRepository.findById(addProduct.getCategoryId()).orElseThrow();
         productRepository.save(map(addProduct, loggedUser, category));
@@ -99,25 +101,32 @@ public class ProductServiceImpl implements ProductService {
         return user.getWishList().stream().map(product -> map(product, isInWishList(product.getId()))).toList();
     }
 
-    private Product map(AddProduct addProduct, User loggedUser, Category category) {
+    private Product map(AddProduct addProduct, User loggedUser, Category category) throws IOException {
+        byte[] photo = addProduct.getFile() != null ? addProduct.getFile().getBytes() : null;
         return new Product(
             loggedUser,
             category,
             addProduct.getTitle(),
-            addProduct.getPrice()
+            addProduct.getPrice(),
+            photo
         );
     }
 
     private ProductInfo map(Product product, boolean inWishList) {
         Long categoryId = (long) -1;
         String categoryTitle = "Brak";
+        String photoBase64 = "";
 
         if (product.getCategory() != null) {
             categoryId = product.getCategory().getId();
             categoryTitle = product.getCategory().getTitle();
         }
+        if (product.getPhoto() != null) {
+            photoBase64 = Base64.getEncoder().encodeToString(product.getPhoto());
+        }
         return new ProductInfo(
                 product.getId(),
+                photoBase64,
                 categoryId,
                 product.getTitle(),
                 product.getUser().getUsername(),

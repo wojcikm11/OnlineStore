@@ -13,6 +13,7 @@ import pl.edu.pw.onlinestore.app.api.dto.ProductInfo;
 import pl.edu.pw.onlinestore.app.api.service.CategoryService;
 import pl.edu.pw.onlinestore.app.api.service.ProductService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -36,7 +37,7 @@ public class ProductController {
     }
 
     @PostMapping("/sell")
-    public String submitProduct(@ModelAttribute("product") AddProduct addProduct, Model model) {
+    public String submitProduct(@ModelAttribute("product") AddProduct addProduct, Model model) throws IOException {
         System.out.println(addProduct.getCategoryId());
         productService.addProduct(addProduct);
         return "redirect:/";

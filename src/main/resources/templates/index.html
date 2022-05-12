@@ -14,7 +14,7 @@
 </head>
 <body>
     <div th:replace="fragments/navbar :: navbar"></div>
-    <div class="container">
+    <div class="container page-container">
 
         <div class="products-utils">
             <a th:if="${param.category == null}" th:href="@{/report/products(category=all)}" class="btn btn-danger products-util xls-category-download"><i class="fa-solid fa-file-arrow-down"></i>Pobierz xls</a>
@@ -47,7 +47,8 @@
 
             <div th:each="product : ${products}" class="product">
                 <div class="product-photo-container">
-                    <img th:src="@{img/ajfon.jpg}" class="product-photo" alt="Responsive image">
+                    <img th:if="${(product.photo != null && !#strings.isEmpty(product.photo))}" th:src="${('data:image/jpeg;charset=utf-8;base64,' + product.photo)}" class="product-photo">
+                    <img th:if="${(product.photo == null || #strings.isEmpty(product.photo))}" th:src="@{/img/default-placeholder.png}" class="product-photo">
                 </div>
                 <div class="product-content">
                     <form th:if="${!product.inWishList}" class="product-header" th:action="@{/wishlist-add(id=${product.id})}" method="POST">

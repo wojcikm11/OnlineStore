@@ -2,6 +2,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.page-container {
+    padding-bottom: 20px;
+}
+
 .jumbotron {
     color: white;
     min-height: 250px;

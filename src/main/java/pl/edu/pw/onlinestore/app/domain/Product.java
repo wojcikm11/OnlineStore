@@ -43,6 +43,14 @@ public class Product {
         this.price = price;
     }
 
+    public Product(User user, Category category, String title, double price, byte[] photo) {
+        this.user = user;
+        this.category = category;
+        this.title = title;
+        this.price = price;
+        this.photo = photo;
+    }
+
     public void removeCategory() {
         this.category = null;
     }
