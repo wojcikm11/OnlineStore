@@ -32,8 +32,8 @@ public class Category {
 
     @OneToMany(
             mappedBy = "category",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = { CascadeType.REFRESH, CascadeType.PERSIST },
+            orphanRemoval = false
     )
     private List<Product> categoryProducts;
 

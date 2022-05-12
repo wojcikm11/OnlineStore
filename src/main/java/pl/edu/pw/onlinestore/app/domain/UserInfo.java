@@ -17,11 +17,10 @@ import java.io.Serializable;
 @EqualsAndHashCode(exclude = "user")
 public class UserInfo implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @MapsId
     private User user;
 
     @Column

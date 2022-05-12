@@ -13,4 +13,7 @@ public interface ProductService {
     ProductInfo getProductById(Long id);
     void updateProduct(EditProduct editProduct);
     void removeProduct(Long id);
+    void addToWishList(Long productId);
+    void removeFromWishList(Long productId);
+    List<ProductInfo> getAllFromWishList(String username);
 }

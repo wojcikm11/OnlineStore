@@ -46,4 +46,10 @@ public class CategoryController {
         categoryService.addCategory(addCategory);
         return "redirect:/";
     }
+
+    @PostMapping("/category-delete")
+    public String deleteCategory(@RequestParam("name") String name) {
+        categoryService.deleteCategory(name);
+        return "redirect:/";
+    }
 }

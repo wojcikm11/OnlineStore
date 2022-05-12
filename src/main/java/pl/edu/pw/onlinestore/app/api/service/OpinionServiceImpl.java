@@ -3,6 +3,7 @@ package pl.edu.pw.onlinestore.app.api.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pw.onlinestore.app.api.dto.AddOpinion;
+import pl.edu.pw.onlinestore.app.api.dto.EditOpinion;
 import pl.edu.pw.onlinestore.app.api.dto.OpinionTypeDTO;
 import pl.edu.pw.onlinestore.app.api.dto.ProfileOpinion;
 import pl.edu.pw.onlinestore.app.domain.Opinion;
@@ -62,6 +63,26 @@ public class OpinionServiceImpl implements OpinionService {
             opinionTypeDTOList.add(map(opinionType));
         }
         return opinionTypeDTOList;
+    }
+
+    @Override
+    public ProfileOpinion getOpinionById(Long id) {
+        return opinionRepository.findById(id).map(this::map).orElseThrow();
+    }
+
+    @Override
+    public String updateOpinion(EditOpinion editOpinion) {
+        Opinion opinion = opinionRepository.findById(editOpinion.getId()).orElseThrow();
+        opinion.setRating(editOpinion.getRating());
+        opinion.setDescription(editOpinion.getDescription());
+        return opinion.getReceiver().getUsername();
+    }
+
+    @Override
+    public String removeOpinion(Long id) {
+        String username = opinionRepository.findById(id).orElseThrow().getReceiver().getUsername();
+        opinionRepository.deleteById(id);
+        return username;
     }
 
     private OpinionTypeDTO map(OpinionType opinionType) {

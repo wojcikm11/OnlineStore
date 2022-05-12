@@ -7,7 +7,9 @@ import pl.edu.pw.onlinestore.app.api.dto.CategoryInfo;
 import pl.edu.pw.onlinestore.app.api.dto.EditCategory;
 import pl.edu.pw.onlinestore.app.api.dto.ProductCategory;
 import pl.edu.pw.onlinestore.app.domain.Category;
+import pl.edu.pw.onlinestore.app.domain.Product;
 import pl.edu.pw.onlinestore.app.repository.CategoryRepository;
+import pl.edu.pw.onlinestore.app.repository.ProductRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +18,11 @@ import java.util.Optional;
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
+    private ProductRepository productRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -43,6 +47,15 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(editCategory.getId()).orElseThrow();
         category.setTitle(editCategory.getTitle());
         category.setDescription(editCategory.getDescription());
+    }
+
+    @Override
+    public void deleteCategory(String name) {
+        List<Product> products = productRepository.findAllByCategoryTitle(name);
+        for (Product product : products) {
+            product.removeCategory();
+        }
+        categoryRepository.deleteByTitle(name);
     }
 
     private CategoryInfo mapToCategoryInfo(Category category) {

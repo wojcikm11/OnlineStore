@@ -17,7 +17,8 @@
     <div class="container">
 
         <div class="products-utils">
-            <button id="xls-category-download" class="btn btn-danger products-util"><i class="fa-solid fa-file-arrow-down"></i>Pobierz xls</button>
+            <a th:if="${param.category == null}" th:href="@{/report/products(category=all)}" class="btn btn-danger products-util xls-category-download"><i class="fa-solid fa-file-arrow-down"></i>Pobierz xls</a>
+            <a th:if="${param.category != null}" th:href="@{/report/products(category=${param.category[0]})}" class="btn btn-danger products-util xls-category-download"><i class="fa-solid fa-file-arrow-down"></i>Pobierz xls</a>
             <div class="btn-group category-dropdown">
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     Kategoria
@@ -31,12 +32,14 @@
         </div>
 
         <div class="jumbotron">
-            <div class="category-header">
+            <form class="category-header" th:action="@{/category-delete(name=${categoryInfo.title})}" method="POST">
                 <h1 class="display-3" th:text="${categoryInfo.title}"></h1>
-                <a th:href="@{/category-edit(name=${categoryInfo.title.toLowerCase()})}" sec:authorize="hasAuthority('ROLE_ADMIN')"
-                   th:if="${categoryInfo.id != -1}"
-                   type="button" class="btn btn-light edit-prod-button edit-category-button">Edytuj</a>
-            </div>
+                <div sec:authorize="hasAuthority('ROLE_ADMIN')" th:if="${categoryInfo.id != -1}">
+                    <button type="submit" class="btn btn-danger buy-button category-button delete-prod-button" >Usuń</button>
+                    <a th:href="@{/category-edit(name=${categoryInfo.title.toLowerCase()})}"
+                       type="button" class="btn btn-light edit-prod-button category-button">Edytuj</a>
+                </div>
+            </form>
             <p class="jumbotron-text" th:text="${categoryInfo.description}"></p>
         </div>
 
@@ -47,10 +50,14 @@
                     <img th:src="@{img/ajfon.jpg}" class="product-photo" alt="Responsive image">
                 </div>
                 <div class="product-content">
-                    <div class="product-header">
+                    <form th:if="${!product.inWishList}" class="product-header" th:action="@{/wishlist-add(id=${product.id})}" method="POST">
                         <h3 class="product-title" th:text="${product.title}"></h3>
-                        <a href="#"><i class="fa-regular fa-heart"></i></a>
-                    </div>
+                        <button type="submit" class="btn btn-link heart-button"><i class="fa-regular fa-heart"></i></button>
+                    </form>
+                    <form th:if="${product.inWishList}" class="product-header" th:action="@{/wishlist-remove(id=${product.id})}" method="POST">
+                        <h3 class="product-title" th:text="${product.title}"></h3>
+                        <button type="submit" class="btn btn-link heart-button"><i class="fa-solid fa-heart"></i></button>
+                    </form>
                     <div class="product-info">
                         <p>Sprzedawca: <a th:href="@{profile(username=${product.seller})}"><span th:text="${product.seller}"></span></a></p>
                         <p>Kategoria: <span th:text="${product.category}"></span></p>

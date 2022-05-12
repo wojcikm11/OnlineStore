@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -31,10 +33,17 @@ public class Product {
     @Lob
     private byte[] photo;
 
+    @ManyToMany(mappedBy = "wishList")
+    private Set<User> usersWishLists = new HashSet<>();
+
     public Product(User user, Category category, String title, double price) {
         this.user = user;
         this.category = category;
         this.title = title;
         this.price = price;
+    }
+
+    public void removeCategory() {
+        this.category = null;
     }
 }

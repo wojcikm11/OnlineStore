@@ -119,7 +119,7 @@ body {
     margin-top: 20px;
 }
 
-#xls-category-download {
+.xls-category-download {
     margin-right: 10px;
 }
 
@@ -160,6 +160,23 @@ body {
     justify-content: space-between;
 }
 
-.edit-category-button {
+.category-button {
     height: min-content;
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
+.btn-link:focus, .btn-link:active {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.heart-button {
+    padding: 0;
+}
+
+.heart-button i {
+    margin-right: 0;
 }

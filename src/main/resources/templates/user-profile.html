@@ -15,7 +15,11 @@
 </head>
 <body>
     <div th:replace="fragments/navbar :: navbar"></div>
-    <div class="container my-5">
+    <div class="container">
+        <div class="buttons-section">
+            <a th:if="${param.opinions == null}" th:href="@{/report/opinions(username=${userInfo.username}, type=all)}" class="btn btn-danger products-util xls-category-download"><i class="fa-solid fa-file-arrow-down"></i>Pobierz xls</a>
+            <a th:if="${param.opinions != null}" th:href="@{/report/opinions(username=${userInfo.username}, type=${param.opinions[0]})}" class="btn btn-danger products-util xls-category-download"><i class="fa-solid fa-file-arrow-down"></i>Pobierz xls</a>
+        </div>
         <div class="row">
             <div class="col-5">
                 <div class="user-main">
@@ -50,29 +54,32 @@
         </div>
 
         <div class="row profile-section">
-            <p class="section-header">Twoja lista życzeń</p>
+            <p class="section-header">Lista życzeń</p>
             <div class="products-list">
 
-                <div class="product">
+                <div th:each="product : ${wishList}" class="product">
                     <div class="product-photo-container">
                         <img th:src="@{img/ajfon.jpg}" class="product-photo" alt="Responsive image">
                     </div>
                     <div class="product-content">
-                        <div class="product-header">
-                            <h3 class="product-title">Iphone 13 Pro Max 1000gb super hiper</h3>
-                            <a href="#"><i class="fa-regular fa-heart"></i></a>
-                        </div>
-
+                        <form th:if="${!product.inWishList}" class="product-header" th:action="@{/wishlist-add(id=${product.id})}" method="POST">
+                            <h3 class="product-title" th:text="${product.title}"></h3>
+                            <button type="submit" class="btn btn-link heart-button"><i class="fa-regular fa-heart"></i></button>
+                        </form>
+                        <form th:if="${product.inWishList}" class="product-header" th:action="@{/wishlist-remove(id=${product.id})}" method="POST">
+                            <h3 class="product-title" th:text="${product.title}"></h3>
+                            <button type="submit" class="btn btn-link heart-button"><i class="fa-solid fa-heart"></i></button>
+                        </form>
                         <div class="product-info">
-                            <p>Sprzedawca: StachuStachursky666</p>
-                            <p>Kategoria: Technologia</p>
-                            <p class="product-price">Cena: 5999,99 zł</p>
+                            <p>Sprzedawca: <a th:href="@{profile(username=${product.seller})}"><span th:text="${product.seller}"></span></a></p>
+                            <p>Kategoria: <span th:text="${product.category}"></span></p>
+                            <p>Cena: <span th:text="${product.price}" class="product-price"></span>zł</p>
                         </div>
                         <div class="product-utils">
-                            <div class="product-seller-buttons">
-                                <button type="button" class="btn btn-danger buy-button delete-prod-button">Usuń</button>
-                                <button type="button" class="btn btn-light edit-prod-button">Edytuj</button>
-                            </div>
+                            <form class="product-seller-buttons" th:action="@{/product-delete(id=${product.id})}" method="POST">
+                                <button type="submit" class="btn btn-danger buy-button delete-prod-button">Usuń</button>
+                                <a th:href="@{/product-edit(id=${product.id})}" type="button" class="btn btn-light edit-prod-button">Edytuj</a>
+                            </form>
                             <div class="product-customer-buttons">
                                 <button type="button" class="btn btn-primary buy-button">Kup teraz</button>
                                 <button type="button" class="btn btn-primary">Dodaj do koszyka</button>
@@ -81,59 +88,6 @@
                     </div>
                 </div>
 
-                <div class="product">
-                    <div class="product-photo-container">
-                        <img th:src="@{img/ajfon.jpg}" class="product-photo" alt="Responsive image">
-                    </div>
-                    <div class="product-content">
-                        <div class="product-header">
-                            <h3 class="product-title">Iphone 13 Pro Max 1000gb super hiper</h3>
-                            <a href="#"><i class="fa-regular fa-heart"></i></a>
-                        </div>
-                        <div class="product-info">
-                            <p>Sprzedawca: StachuStachursky666</p>
-                            <p>Kategoria: Technologia</p>
-                            <p class="product-price">Cena: 5999,99 zł</p>
-                        </div>
-                        <div class="product-utils">
-                            <div class="product-seller-buttons">
-                                <button type="button" class="btn btn-danger buy-button delete-prod-button">Usuń</button>
-                                <button type="button" class="btn btn-light edit-prod-button">Edytuj</button>
-                            </div>
-                            <div class="product-customer-buttons">
-                                <button type="button" class="btn btn-primary buy-button">Kup teraz</button>
-                                <button type="button" class="btn btn-primary">Dodaj do koszyka</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="product-photo-container">
-                        <img th:src="@{img/ajfon.jpg}" class="product-photo" alt="Responsive image">
-                    </div>
-                    <div class="product-content">
-                        <div class="product-header">
-                            <h3 class="product-title">Iphone 13 Pro Max 1000gb super hiper</h3>
-                            <a href="#"><i class="fa-regular fa-heart"></i></a>
-                        </div>
-                        <div class="product-info">
-                            <p>Sprzedawca: StachuStachursky666</p>
-                            <p>Kategoria: Technologia</p>
-                            <p class="product-price">Cena: 5999,99 zł</p>
-                        </div>
-                        <div class="product-utils">
-                            <div class="product-seller-buttons">
-                                <button type="button" class="btn btn-danger buy-button delete-prod-button">Usuń</button>
-                                <button type="button" class="btn btn-light edit-prod-button">Edytuj</button>
-                            </div>
-                            <div class="product-customer-buttons">
-                                <button type="button" class="btn btn-primary buy-button">Kup teraz</button>
-                                <button type="button" class="btn btn-primary">Dodaj do koszyka</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -154,113 +108,18 @@
             <div th:each="opinion : ${opinions}" class="profile-opinion">
                 <div class="opinion-header">
                     <div class="opinion-username"><span th:text="${opinion.username}"></span></div>
-                    <div class="opinion-utils">
-                        <a class="remove-opinion-link" href="#">Usuń</a>
-                        <a th:href="@{/opinion-edit}">Edytuj</a>
-                    </div>
+                    <form class="opinion-utils" th:action="@{/opinion-delete(id=${opinion.id})}" method="POST">
+                        <button type="submit" class="remove-opinion-link btn btn-link">Usuń</button>
+                        <a th:href="@{/opinion-edit(id=${opinion.id})}">Edytuj</a>
+                    </form>
                 </div>
                 <div class="opinion-rating">Ocena: <span th:text="${opinion.rating}"></span>/5</div>
                 <div class="opinion-date"><span th:text="${opinion.dateAdded.toString()}"></span></div>
                 <p class="opinion-description" th:text="${opinion.description}">
                 </p>
             </div>
-
-
-<!--            <div class="profile-opinion">-->
-<!--                <div class="opinion-header">-->
-<!--                    <div class="opinion-username">Stachursky666</div>-->
-<!--                    <div class="opinion-utils">-->
-<!--                        <a class="remove-opinion-link" href="#">Usuń</a>-->
-<!--                        <a th:href="@{/opinion-edit}">Edytuj</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="opinion-rating">Ocena: 3/5</div>-->
-<!--                <div class="opinion-date">22.04.2021, 16:03</div>-->
-<!--                <p class="opinion-description">-->
-<!--                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
-<!--                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.-->
-<!--                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.-->
-<!--                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.-->
-<!--                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.-->
-<!--                </p>-->
-<!--            </div>-->
-
-<!--            <div class="profile-opinion">-->
-<!--                <div class="opinion-header">-->
-<!--                    <div class="opinion-username">Stachursky666</div>-->
-<!--                    <div class="opinion-utils">-->
-<!--                        <a class="remove-opinion-link" href="#">Usuń</a>-->
-<!--                        <a href="#">Edytuj</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="opinion-rating">Ocena: 3/5</div>-->
-<!--                <div class="opinion-date">22.04.2021, 16:03</div>-->
-<!--                <p class="opinion-description">-->
-<!--                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
-<!--                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.-->
-<!--                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.-->
-<!--                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.-->
-<!--                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.-->
-<!--                </p>-->
-<!--            </div>-->
-
-<!--            <div class="profile-opinion">-->
-<!--                <div class="opinion-header">-->
-<!--                    <div class="opinion-username">Stachursky666</div>-->
-<!--                    <div class="opinion-utils">-->
-<!--                        <a class="remove-opinion-link" href="#">Usuń</a>-->
-<!--                        <a href="#">Edytuj</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="opinion-rating">Ocena: 3/5</div>-->
-<!--                <div class="opinion-date">22.04.2021, 16:03</div>-->
-<!--                <p class="opinion-description">-->
-<!--                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
-<!--                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.-->
-<!--                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.-->
-<!--                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.-->
-<!--                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.-->
-<!--                </p>-->
-<!--            </div>-->
-
-<!--            <div class="profile-opinion">-->
-<!--                <div class="opinion-header">-->
-<!--                    <div class="opinion-username">Stachursky666</div>-->
-<!--                    <div class="opinion-utils">-->
-<!--                        <a class="remove-opinion-link" href="#">Usuń</a>-->
-<!--                        <a href="#">Edytuj</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="opinion-rating">Ocena: 3/5</div>-->
-<!--                <div class="opinion-date">22.04.2021, 16:03</div>-->
-<!--                <p class="opinion-description">-->
-<!--                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
-<!--                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.-->
-<!--                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.-->
-<!--                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.-->
-<!--                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.-->
-<!--                </p>-->
-<!--            </div>-->
-
-<!--            <div class="profile-opinion">-->
-<!--                <div class="opinion-header">-->
-<!--                    <div class="opinion-username">Stachursky666</div>-->
-<!--                    <div class="opinion-utils">-->
-<!--                        <a class="remove-opinion-link" href="#">Usuń</a>-->
-<!--                        <a href="#">Edytuj</a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="opinion-rating">Ocena: 3/5</div>-->
-<!--                <div class="opinion-date">22.04.2021, 16:03</div>-->
-<!--                <p class="opinion-description">-->
-<!--                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
-<!--                    Donec tincidunt eget mauris eu egestas. Maecenas mi dolor, pharetra eget mi ac, convallis sagittis erat.-->
-<!--                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam ut lorem nec lacus ornare imperdiet vel eu nulla.-->
-<!--                    Proin commodo risus eu imperdiet elementum. Mauris sodales dignissim magna a ullamcorper.-->
-<!--                    Maecenas neque lacus, varius eget blandit id, facilisis sed mi.-->
-<!--                </p>-->
-<!--            </div>-->
         </div>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

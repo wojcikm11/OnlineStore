@@ -13,7 +13,7 @@ import java.util.*;
 @Setter
 @Getter
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "wishList")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -37,6 +37,16 @@ public class User implements UserDetails {
             orphanRemoval = true
     )
     private List<Product> userProducts;
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "wishlist",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> wishList = new HashSet<>();
 
     @OneToMany(
             mappedBy = "receiver",
@@ -73,6 +83,27 @@ public class User implements UserDetails {
             userInfo.setUser(this);
         }
         this.userInfo = userInfo;
+    }
+
+    public void addToWishList(Product product) {
+        if (product != null) {
+            this.wishList.add(product);
+            product.getUsersWishLists().add(this);
+        }
+    }
+
+    public void removeFromWishList(Product product) {
+        if (product != null) {
+            this.wishList.remove(product);
+            product.getUsersWishLists().remove(this);
+        }
+    }
+
+    public boolean inWishList(Product product) {
+        if (product != null) {
+            return wishList.contains(product);
+        }
+        throw new NullPointerException("Product cannot be null.");
     }
 
     @Override

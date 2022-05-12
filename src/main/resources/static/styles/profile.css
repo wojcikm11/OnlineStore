@@ -120,5 +120,20 @@
 }
 
 .remove-opinion-link {
-    margin-right: 15px;
+    margin-right: 5px;
+    text-decoration: none;
+    position: relative;
+    bottom: 1px;
+}
+
+.btn-link.btn-anchor {
+    outline: none !important;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+.buttons-section {
+    margin-top: 20px;
+    margin-bottom: 35px;
 }

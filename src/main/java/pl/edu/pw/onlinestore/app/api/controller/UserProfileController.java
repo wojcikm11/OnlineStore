@@ -6,13 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.edu.pw.onlinestore.app.api.dto.EditUserInfo;
-import pl.edu.pw.onlinestore.app.api.dto.OpinionTypeDTO;
-import pl.edu.pw.onlinestore.app.api.dto.ProfileOpinion;
-import pl.edu.pw.onlinestore.app.api.dto.UserInfoDTO;
+import pl.edu.pw.onlinestore.app.api.dto.*;
 import pl.edu.pw.onlinestore.app.api.service.OpinionService;
+import pl.edu.pw.onlinestore.app.api.service.ProductService;
 import pl.edu.pw.onlinestore.app.api.service.UserService;
-import pl.edu.pw.onlinestore.app.domain.OpinionType;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +19,12 @@ public class UserProfileController {
 
     private UserService userService;
     private OpinionService opinionService;
+    private ProductService productService;
 
-    public UserProfileController(UserService userService, OpinionService opinionService) {
+    public UserProfileController(UserService userService, OpinionService opinionService, ProductService productService) {
         this.userService = userService;
         this.opinionService = opinionService;
+        this.productService = productService;
     }
 
     @GetMapping("/profile")
@@ -38,9 +37,12 @@ public class UserProfileController {
         }
         UserInfoDTO userInfo = userService.getUserInfoByUsername(username);
         List<OpinionTypeDTO> opinionTypes = opinionService.getOpinionTypes();
+        List<ProductInfo> wishList = productService.getAllFromWishList(username);
+
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("opinions", profileOpinions);
         model.addAttribute("opinionsTypes", opinionTypes);
+        model.addAttribute("wishList", wishList);
         return "user-profile";
     }
 

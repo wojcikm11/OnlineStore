@@ -1,5 +1,7 @@
 package pl.edu.pw.onlinestore.app.api.service;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pw.onlinestore.app.api.dto.AddProduct;
@@ -10,18 +12,22 @@ import pl.edu.pw.onlinestore.app.domain.Product;
 import pl.edu.pw.onlinestore.app.domain.User;
 import pl.edu.pw.onlinestore.app.repository.CategoryRepository;
 import pl.edu.pw.onlinestore.app.repository.ProductRepository;
+import pl.edu.pw.onlinestore.app.repository.UserRepository;
 import pl.edu.pw.onlinestore.security.SecurityUtils;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
+    private UserRepository userRepository;
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public ProductServiceImpl(UserRepository userRepository, ProductRepository productRepository, CategoryRepository categoryRepository) {
+        this.userRepository = userRepository;
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
     }
@@ -35,17 +41,28 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductInfo> getProductsByCategory(String categoryName) {
-        return productRepository.findAllByCategoryTitle(categoryName).stream().map(this::map).toList();
+        return productRepository.findAllByCategoryTitle(categoryName).stream().
+                map(product -> map(product, isInWishList(product.getId()))).toList();
     }
 
     @Override
     public List<ProductInfo> getAll() {
-        return productRepository.findAll().stream().map(this::map).toList();
+        return productRepository.findAll().stream().
+                map(product -> map(product, isInWishList(product.getId()))).toList();
     }
 
     @Override
     public ProductInfo getProductById(Long id) {
-        return map(productRepository.findById(id).orElseThrow());
+        return map(productRepository.findById(id).orElseThrow(), isInWishList(id));
+    }
+
+    private boolean isInWishList(Long productId) {
+        if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken) {
+            return false;
+        }
+        Product product = productRepository.findById(productId).orElseThrow();
+        User user = userRepository.findByUsername(SecurityUtils.getLoggedUser().getUsername()).orElseThrow();
+        return user.inWishList(product);
     }
 
     @Override
@@ -62,6 +79,26 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
+    @Override
+    public void addToWishList(Long productId) {
+        User user = userRepository.findByUsername(SecurityUtils.getLoggedUser().getUsername()).orElseThrow();
+        Product product = productRepository.findById(productId).orElseThrow();
+        user.addToWishList(product);
+    }
+
+    @Override
+    public void removeFromWishList(Long productId) {
+        User user = userRepository.findByUsername(SecurityUtils.getLoggedUser().getUsername()).orElseThrow();
+        Product product = productRepository.findById(productId).orElseThrow();
+        user.removeFromWishList(product);
+    }
+
+    @Override
+    public List<ProductInfo> getAllFromWishList(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow();
+        return user.getWishList().stream().map(product -> map(product, isInWishList(product.getId()))).toList();
+    }
+
     private Product map(AddProduct addProduct, User loggedUser, Category category) {
         return new Product(
             loggedUser,
@@ -71,14 +108,22 @@ public class ProductServiceImpl implements ProductService {
         );
     }
 
-    private ProductInfo map(Product product) {
+    private ProductInfo map(Product product, boolean inWishList) {
+        Long categoryId = (long) -1;
+        String categoryTitle = "Brak";
+
+        if (product.getCategory() != null) {
+            categoryId = product.getCategory().getId();
+            categoryTitle = product.getCategory().getTitle();
+        }
         return new ProductInfo(
                 product.getId(),
-                product.getCategory().getId(),
+                categoryId,
                 product.getTitle(),
                 product.getUser().getUsername(),
-                product.getCategory().getTitle(),
-                product.getPrice()
+                categoryTitle,
+                product.getPrice(),
+                inWishList
         );
     }
 

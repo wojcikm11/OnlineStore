@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS category (
 
 CREATE TABLE IF NOT EXISTS product (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-    category_id INT NOT NULL,
+    category_id INT NULL,
     user_id INT NOT NULL,
     title VARCHAR(25) NOT NULL,
     price FLOAT NOT NULL,

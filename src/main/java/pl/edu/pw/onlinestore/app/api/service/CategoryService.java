@@ -12,4 +12,5 @@ public interface CategoryService {
     List<ProductCategory> getCategories();
     CategoryInfo getCategoryByName(String name);
     void updateCategory(EditCategory editCategory);
+    void deleteCategory(String name);
 }
