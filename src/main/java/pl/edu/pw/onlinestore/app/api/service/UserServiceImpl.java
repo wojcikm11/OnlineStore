@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.onlinestore.app.api.dto.EditUserInfo;
-import pl.edu.pw.onlinestore.app.api.dto.OpinionTypeDTO;
 import pl.edu.pw.onlinestore.app.api.dto.UserInfoDTO;
 import pl.edu.pw.onlinestore.app.api.dto.UserRegistration;
 import pl.edu.pw.onlinestore.app.domain.Role;
@@ -17,12 +16,12 @@ import pl.edu.pw.onlinestore.app.domain.UserInfo;
 import pl.edu.pw.onlinestore.app.repository.UserRepository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
+    public static final String PROFILE_INFO_DEFAULT_FIELD = "Nie podano";
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -74,12 +73,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new UserInfoDTO(
                 userInfo.getId(),
                 username,
-                userInfo.getFirstName(),
-                userInfo.getLastName(),
-                userInfo.getCity(),
-                userInfo.getEmail(),
-                userInfo.getPhone()
+                ifBlankReturnDefault(userInfo.getFirstName()),
+                ifBlankReturnDefault(userInfo.getLastName()),
+                ifBlankReturnDefault(userInfo.getCity()),
+                ifBlankReturnDefault(userInfo.getEmail()),
+                ifBlankReturnDefault(userInfo.getPhone())
         );
+    }
+
+    private String ifBlankReturnDefault(String s) {
+        if (s == null || s.isBlank()) {
+            return PROFILE_INFO_DEFAULT_FIELD;
+        }
+        return s;
     }
 
     @Override

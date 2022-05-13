@@ -10,6 +10,7 @@ import pl.edu.pw.onlinestore.app.api.dto.*;
 import pl.edu.pw.onlinestore.app.api.service.OpinionService;
 import pl.edu.pw.onlinestore.app.api.service.ProductService;
 import pl.edu.pw.onlinestore.app.api.service.UserService;
+import pl.edu.pw.onlinestore.app.api.service.UserServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -64,11 +65,18 @@ public class UserProfileController {
     private EditUserInfo map(UserInfoDTO userInfoDTO) {
         return new EditUserInfo(
           userInfoDTO.getId(),
-          userInfoDTO.getFirstName(),
-          userInfoDTO.getLastName(),
-          userInfoDTO.getCity(),
-          userInfoDTO.getEmail(),
-          userInfoDTO.getPhone()
+                ifDefaultEmptyField(userInfoDTO.getFirstName()),
+                ifDefaultEmptyField(userInfoDTO.getLastName()),
+                ifDefaultEmptyField(userInfoDTO.getCity()),
+                ifDefaultEmptyField(userInfoDTO.getEmail()),
+                ifDefaultEmptyField(userInfoDTO.getPhone())
         );
+    }
+
+    private String ifDefaultEmptyField(String field) {
+        if (field.equals(UserServiceImpl.PROFILE_INFO_DEFAULT_FIELD)) {
+            return null;
+        }
+        return field;
     }
 }

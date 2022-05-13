@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS product (
     user_id INT NOT NULL,
     title VARCHAR(25) NOT NULL,
     price FLOAT NOT NULL,
-    photo BLOB,
+    photo LONGBLOB,
     FOREIGN KEY (category_id) REFERENCES category (id),
     FOREIGN KEY (user_id) REFERENCES user (id)
 );
